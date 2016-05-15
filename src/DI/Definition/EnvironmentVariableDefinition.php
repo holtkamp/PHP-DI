@@ -2,8 +2,6 @@
 
 namespace DI\Definition;
 
-use DI\Scope;
-
 /**
  * Defines a reference to an environment variable, with fallback to a default
  * value if the environment variable is not defined.
@@ -39,11 +37,6 @@ class EnvironmentVariableDefinition implements CacheableDefinition
      * @var mixed
      */
     private $defaultValue;
-
-    /**
-     * @var string|null
-     */
-    private $scope;
 
     /**
      * @param string $name Entry name
@@ -89,21 +82,5 @@ class EnvironmentVariableDefinition implements CacheableDefinition
     public function getDefaultValue()
     {
         return $this->defaultValue;
-    }
-
-    /**
-     * @param string $scope
-     */
-    public function setScope($scope)
-    {
-        $this->scope = $scope;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScope()
-    {
-        return $this->scope ?: Scope::SINGLETON;
     }
 }

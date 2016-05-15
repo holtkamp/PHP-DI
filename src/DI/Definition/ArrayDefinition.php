@@ -2,8 +2,6 @@
 
 namespace DI\Definition;
 
-use DI\Scope;
-
 /**
  * Definition of an array containing values or references.
  *
@@ -39,14 +37,6 @@ class ArrayDefinition implements Definition
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScope()
-    {
-        return Scope::SINGLETON;
     }
 
     /**

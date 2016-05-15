@@ -1,5 +1,9 @@
 # Change log
 
+## 6.0
+
+- [#409](https://github.com/PHP-DI/PHP-DI/issues/409): Scopes are removed (by [@mnapoli](https://github.com/mnapoli))
+
 ## 5.3
 
 - PHP-DI now requires a version of PHP >= 5.5.0

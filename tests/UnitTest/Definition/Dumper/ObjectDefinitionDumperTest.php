@@ -5,7 +5,6 @@ namespace DI\Test\UnitTest\Definition\Dumper;
 use DI\Definition\Dumper\ObjectDefinitionDumper;
 use DI\Definition\ObjectDefinition;
 use DI\Definition\ValueDefinition;
-use DI\Scope;
 
 /**
  * @covers \DI\Definition\Dumper\ObjectDefinitionDumper
@@ -24,7 +23,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = true
     __construct(
         $mailer = get(Mailer)
@@ -47,7 +45,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
 )';
 
@@ -63,7 +60,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = #UNKNOWN# foobar
-    scope = singleton
     lazy = false
 )';
 
@@ -78,23 +74,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = #NOT INSTANTIABLE# ArrayAccess
-    scope = singleton
-    lazy = false
-)';
-
-        $this->assertEquals($str, $resolver->dump($definition));
-    }
-
-    public function testScopePrototype()
-    {
-        $definition = \DI\object('stdClass')
-            ->scope(Scope::PROTOTYPE)
-            ->getDefinition('foo');
-        $resolver = new ObjectDefinitionDumper();
-
-        $str = 'Object (
-    class = stdClass
-    scope = prototype
     lazy = false
 )';
 
@@ -110,7 +89,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = stdClass
-    scope = singleton
     lazy = true
 )';
 
@@ -126,7 +104,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     __construct(
         $mailer = get(Mailer)
@@ -146,7 +123,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     __construct(
         $mailer = get(Mailer)
@@ -166,7 +142,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     $prop = \'Some value\'
 )';
@@ -174,7 +149,7 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($str, $resolver->dump($definition));
     }
 
-    public function testPropertyget()
+    public function testPropertyGet()
     {
         $definition = \DI\object(FixtureClass::class)
             ->property('prop', \DI\get('foo'))
@@ -183,7 +158,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     $prop = get(foo)
 )';
@@ -200,7 +174,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     setFoo(
         $foo = get(Mailer)
@@ -219,7 +192,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     setFoo(
         $foo = \'foo\'
@@ -238,7 +210,6 @@ class ObjectDefinitionDumperTest extends \PHPUnit_Framework_TestCase
 
         $str = 'Object (
     class = DI\Test\UnitTest\Definition\Dumper\FixtureClass
-    scope = singleton
     lazy = false
     defaultValue(
         $foo = (default value) \'bar\'
